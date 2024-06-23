@@ -35,6 +35,7 @@ public class AudioPlayer : MonoBehaviour
             AudioClip audioClip = DownloadHandlerAudioClip.GetContent(www);
             audioSource.clip = audioClip;
             audioSource.Play();
+            
         }
         else Debug.LogError("Audio file loading error: " + www.error);
         

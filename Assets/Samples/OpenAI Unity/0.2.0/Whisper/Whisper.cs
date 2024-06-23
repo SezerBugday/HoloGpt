@@ -9,11 +9,11 @@ namespace Samples.Whisper
     public class Whisper : MonoBehaviour
     {
       //  public Animator recoderButtonAnim;
-     
+     public HavaApi havaApi;
       public  ChatCPT chatCPT;
         [SerializeField] private Button recordButton;
        // [SerializeField] private Image progressBar;
-        [SerializeField] private TMP_Text message;
+      //  [SerializeField] private TMP_Text message;
         //[SerializeField] private Dropdown dropdown;
         public AudioSource audioSource;
         private readonly string fileName = "output.wav";
@@ -26,6 +26,7 @@ namespace Samples.Whisper
 
         private void Start()
         {
+            chatCPT.chatText.text = "Komut vermek için butona basınız...";
             audioSource = GetComponent<AudioSource>();
            // chatCPT = GetComponent<ChatCPT>();
             #if UNITY_WEBGL && !UNITY_EDITOR
@@ -52,6 +53,7 @@ namespace Samples.Whisper
         {
             if (!isRecording)
             {
+                chatCPT.chatText.text = "HoloGpt seni dinliyor...";
                // recoderButtonAnim.SetBool("Recoder",true);
                 audioSource.PlayOneShot(start_record);
                 isRecording = true;
@@ -79,12 +81,13 @@ namespace Samples.Whisper
         {
             if (isRecording)
             {
+                chatCPT.chatText.text = "HoloGpt söylenenleri analiz ediyor...";
                 isRecording = false;
               //  recoderButtonAnim.SetBool("Recoder",false);
                 audioSource.PlayOneShot(end_record);
             
                 Microphone.End(Microphone.devices[0]);
-                message.text = "Transcripting...";
+              //  message.text = "Transcripting...";
             
 #if !UNITY_WEBGL
                 Microphone.End(null);
@@ -99,15 +102,23 @@ namespace Samples.Whisper
                     Model = "whisper-1",
                     Language = "tr"
                 };
+                
+             
                 var res = await openai.CreateAudioTranscription(req);
                 Debug.Log(res.Text);
-            
-            
-                chatCPT.Basla(res.Text);
+
+                if (havaApi.CheckHavaapi.isOn)
+                {
+                    havaApi.HavaDurumu(res.Text);
+                }
+                else
+                {
+                    chatCPT.Basla(res.Text);
+                }
                 isRecording = false;
 
                 // progressBar.fillAmount = 0;
-                message.text = res.Text;
+            //    message.text = res.Text;
                 //recordButton.enabled = true;
             }
             

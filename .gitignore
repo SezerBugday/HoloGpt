@@ -9,7 +9,10 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+# Vuforia related files and directories
+/[Pp]ackages/com.ptc.vuforia.engine-10.22.5.tgz
 
+/[Aa]ssets/Common/
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
