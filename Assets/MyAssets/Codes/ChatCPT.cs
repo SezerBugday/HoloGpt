@@ -35,6 +35,7 @@ public class ChatCPT : MonoBehaviour
             {
                 HistoryTalk.Instance.conversationHistory.Insert(0, new Message { role = "system", content = "Lütfen tüm yanıtları Türkçe olarak ver." });
                 HistoryTalk.Instance.conversationHistory.Insert(1, new Message { role = "system", content = "Senin adın HoloGPT, kendini tanıt." });
+                HistoryTalk.Instance.conversationHistory.Insert(1, new Message { role = "system", content = "Dolar dışındaki döviz işlemlerinde para birimin dolara göre değerlerini birbirne böl değeri bul." });
             }
         }
         
